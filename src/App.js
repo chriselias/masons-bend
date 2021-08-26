@@ -11,6 +11,7 @@ import Addbusiness from "./components/AddBusiness";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Privacy from "./components/PrivacyPolicy";
+import SignUp from "./components/SignUp";
 
 const auth = firebase.auth();
 
@@ -28,6 +29,9 @@ function App() {
       </Route>
       <Route path="/privacy">
         <Privacy />
+      </Route>
+      <Route path="/signup">
+        <SignUp />
       </Route>
       <Footer />
     </Router>

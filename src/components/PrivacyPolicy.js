@@ -2,7 +2,7 @@ import React from "react";
 
 const Privacypolicy = () => {
   return (
-    <div className="max-w-screen-lg m-auto p-12">
+    <div className="max-w-screen-md m-auto p-12">
       <h1 className="text-xl">Privacy Policy</h1>
       <h2>Information that is gathered from visitors</h2>
       <p>

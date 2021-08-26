@@ -15,7 +15,7 @@ const Directory = () => {
     getBusinesses();
   }, []);
 
-  const query = businessesRef.orderBy("name").limit(3);
+  const query = businessesRef.orderBy("createdAt").limit(3);
   const [businessesData] = useCollectionData(query, { idField: "id" });
 
   const [businesses, setBusinesses] = useState([]);
@@ -25,7 +25,7 @@ const Directory = () => {
     await firebase
       .firestore()
       .collection("businesses")
-      .orderBy("name")
+      .orderBy("createdAt")
       .onSnapshot((querySnapshot) => {
         const items = [];
         querySnapshot.forEach((item) => {
@@ -79,8 +79,15 @@ const Directory = () => {
             onChange={filterBusinessByCategory}
           >
             <option value="">Select a Category</option>
-            <option value="plumber">Plumber</option>
-            <option value="electrician">Electrician</option>
+            <option value="plumber">plumber</option>
+            <option value="electrician">electrician</option>
+            <option value="painter">painter</option>
+            <option value="food">food / beverage</option>
+            <option value="childcare">child care</option>
+            <option value="petcare">pet care</option>
+            <option value="realtor">realtor</option>
+            <option value="handyman">handyman</option>
+            <option value="other">other</option>
           </select>
           <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
             <svg
@@ -103,10 +110,11 @@ const Directory = () => {
         {/* <SearchBar /> */}
       </div>
       <div className="max-w-screen-lg m-auto">
-        {businesses &&
-          businesses.map((business) => (
-            <Business key={business.id} info={business} />
-          ))}
+        {businesses.length > 0
+          ? businesses.map((business) => (
+              <Business key={business.id} info={business} />
+            ))
+          : "sorry no biz"}
       </div>
     </>
   );

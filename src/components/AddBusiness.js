@@ -14,7 +14,7 @@ const Addbusiness = () => {
   const {
     register,
     handleSubmit,
-    watch,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -36,7 +36,7 @@ const Addbusiness = () => {
       description,
     } = data;
     const businessesRef = firestore.collection("businesses");
-    await businessesRef.add({
+    const result = await businessesRef.add({
       name,
       email,
       phone,
@@ -46,16 +46,14 @@ const Addbusiness = () => {
       state,
       zip,
       category,
+      facebook,
+      instagram,
+      description,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       uid,
       photoURL,
     });
-    history.push("/");
-  };
-
-  const businessValidation = {
-    required: "Enter a Business Name",
-    maxLength: 50,
+    setAlert(true);
   };
 
   return (
@@ -73,9 +71,9 @@ const Addbusiness = () => {
               stroke="currentColor"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokewidth="2"
                 d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"
               />
             </svg>
@@ -95,8 +93,8 @@ const Addbusiness = () => {
       <form className="w-full col-span-2" onSubmit={handleSubmit(addBusiness)}>
         <h1 className="mb-4 text-lg font-bold">Add a Business</h1>
         {/* <Input name="name" label="Business Name" /> */}
-        <div class="flex flex-wrap -mx-3 mb-6">
-          <div class="w-full px-3">
+        <div className="flex flex-wrap -mx-3 mb-6">
+          <div className="w-full px-3">
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold">
               Business Name*
             </label>
@@ -113,9 +111,9 @@ const Addbusiness = () => {
             )}
           </div>
         </div>
-        <div class="flex flex-wrap -mx-3 mb-6">
-          <div class="w-full px-3">
-            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+        <div className="flex flex-wrap -mx-3 mb-6">
+          <div className="w-full px-3">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
               Description*
             </label>
             <textarea
@@ -134,9 +132,9 @@ const Addbusiness = () => {
           </div>
         </div>
 
-        <div class="flex flex-wrap -mx-3 mb-6">
-          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+        <div className="flex flex-wrap -mx-3 mb-6">
+          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
               Category*
             </label>
             <div className="relative">
@@ -150,9 +148,9 @@ const Addbusiness = () => {
                 <option value="plumber">plumber</option>
                 <option value="electrician">electrician</option>
                 <option value="painter">painter</option>
-                <option value="food_beverage">food / beverage</option>
-                <option value="child care">child care</option>
-                <option value="pet care">pet care</option>
+                <option value="food">food / beverage</option>
+                <option value="childcare">child care</option>
+                <option value="petcare">pet care</option>
                 <option value="realtor">realtor</option>
                 <option value="handyman">handyman</option>
                 <option value="other">other</option>
@@ -172,10 +170,7 @@ const Addbusiness = () => {
             )}
           </div>
           <div className="w-full md:w-1/2 px-3">
-            <label
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              for="grid-last-name"
-            >
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
               Owned By a Masons Bend Resisdent?
             </label>
             <div className="mt-2  mb-3">
@@ -208,8 +203,8 @@ const Addbusiness = () => {
           </div>
         </div>
 
-        <div class="flex flex-wrap -mx-3 mb-6">
-          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+        <div className="flex flex-wrap -mx-3 mb-6">
+          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold">
               Phone
             </label>
@@ -218,19 +213,20 @@ const Addbusiness = () => {
               {...register("phone")}
             />
           </div>
-          <div class="w-full md:w-1/2 px-3">
+          <div className="w-full md:w-1/2 px-3">
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold">
               Email
             </label>
             <input
+              type="email"
               className="appearance-none block w-full bg-gray-50 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
               {...register("email")}
             />
           </div>
         </div>
 
-        <div class="flex flex-wrap -mx-3 mb-6">
-          <div class="w-full px-3">
+        <div className="flex flex-wrap -mx-3 mb-6">
+          <div className="w-full px-3">
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold">
               Address
             </label>
@@ -243,10 +239,7 @@ const Addbusiness = () => {
 
         <div className="flex flex-wrap -mx-3 mb-2">
           <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-            <label
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              for="grid-city"
-            >
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
               City
             </label>
             <input
@@ -257,10 +250,7 @@ const Addbusiness = () => {
             />
           </div>
           <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-            <label
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              for="grid-state"
-            >
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
               State
             </label>
             <div className="relative">
@@ -271,9 +261,9 @@ const Addbusiness = () => {
                 <option value="SC">South Carolina</option>
                 <option value="NC">North Carolina</option>
               </select>
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                 <svg
-                  class="fill-current h-4 w-4"
+                  className="fill-current h-4 w-4"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
                 >
@@ -282,15 +272,12 @@ const Addbusiness = () => {
               </div>
             </div>
           </div>
-          <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-            <label
-              class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              for="grid-zip"
-            >
+          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
               Zip
             </label>
             <input
-              class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              className="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               id="grid-zip"
               type="text"
               placeholder="29708"
@@ -299,35 +286,37 @@ const Addbusiness = () => {
           </div>
         </div>
 
-        <div class="flex flex-wrap -mx-3 mb-2">
-          <div class="w-full px-3 mb-6 md:mb-0">
+        <div className="flex flex-wrap -mx-3 mb-2">
+          <div className="w-full px-3 mb-6 md:mb-0">
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold">
               Website
             </label>
             <input
+              type="url"
               className="appearance-none block w-full bg-gray-50 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
               {...register("website")}
             />
           </div>
         </div>
 
-        <div class="flex flex-wrap -mx-3 mb-2">
-          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+        <div className="flex flex-wrap -mx-3 mb-2">
+          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold">
               Facebook
             </label>
             <input
+              type="url"
               className="appearance-none block w-full bg-gray-50 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-              {...register("website")}
+              {...register("facebook")}
             />
           </div>
-          <div class="w-full md:w-1/2 px-3">
+          <div className="w-full md:w-1/2 px-3">
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold">
               Instagram
             </label>
             <input
               className="appearance-none block w-full bg-gray-50 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-              {...register("email")}
+              {...register("instagram")}
             />
           </div>
         </div>
