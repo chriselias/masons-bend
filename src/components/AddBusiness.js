@@ -57,7 +57,7 @@ const Addbusiness = () => {
   };
 
   return (
-    <div className="md:grid md:grid-cols-3 gap-8 max-w-screen-lg m-auto p-6 md:p-12">
+    <div className="md:grid md:grid-cols-3 gap-8 max-w-screen-lg m-auto p-6 md:p-12 bg-white">
       {alert && (
         <div
           className="py-3 px-5 mb-4 bg-green-100 text-green-900 text-sm rounded-md border border-green-200 flex items-center col-span-3"

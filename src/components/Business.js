@@ -27,7 +27,7 @@ const Business = (props) => {
 
   return (
     <div className="flex border-r border-b border-l border-gray-200 ">
-      <div className="px-6 py-4 border-r border-gray-200">
+      <div className="flex px-6 py-4 border-r border-gray-200">
         {category === "plumber" && <img src={plumber} alt={name} />}
         {category === "electrician" && <img src={electrician} alt={name} />}
         {category === "handyman" && <img src={handyman} alt={name} />}
@@ -41,9 +41,7 @@ const Business = (props) => {
       </div>
 
       <div className="px-6 py-4">
-        <div className="font-bold text-xl">
-          {name} - {category}
-        </div>
+        <div className="font-bold text-md">{name}</div>
         <div className="text-gray-700 text-sm">{description}</div>
         <div className="text-gray-700 text-sm">
           {address} {city} {state} {zip}

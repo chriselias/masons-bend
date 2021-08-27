@@ -9,6 +9,7 @@ import SearchBar from "./SearchBar";
 const firestore = firebase.firestore();
 
 const Directory = () => {
+  const [checkBoxValue, setCheckBoxValue] = useState(false);
   const businessesRef = firestore.collection("businesses");
 
   useEffect(() => {
@@ -55,6 +56,13 @@ const Directory = () => {
       setBusinesses(filtered);
     }
   };
+
+  const toggleMBOwners = () => {
+    if (checkBoxValue === true) {
+      console.log("filtering..", checkBoxValue);
+    }
+    setCheckBoxValue(!checkBoxValue);
+  };
   console.log("bd", businessesData);
 
   const searchBusinesses = (e) => {
@@ -67,54 +75,67 @@ const Directory = () => {
   };
   return (
     <>
-      <div className="max-w-screen-lg m-auto bg-blue-50 p-4 border border-gray-200 grid grid-cols-2 gap-4">
-        <input
-          className="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-          onChange={searchBusinesses}
-          placeholder="Search Business Name"
-        />
-        <div className="relative">
-          <select
-            className="block appearance-none w-full border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-            onChange={filterBusinessByCategory}
-          >
-            <option value="">Select a Category</option>
-            <option value="plumber">plumber</option>
-            <option value="electrician">electrician</option>
-            <option value="painter">painter</option>
-            <option value="food">food / beverage</option>
-            <option value="childcare">child care</option>
-            <option value="petcare">pet care</option>
-            <option value="realtor">realtor</option>
-            <option value="handyman">handyman</option>
-            <option value="other">other</option>
-          </select>
-          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-            <svg
-              class="fill-current h-4 w-4"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
+      <div className="max-w-screen-lg m-auto bg-white">
+        <div className=" bg-purple-600 p-8 grid grid-cols-4 gap-4 mt-8 sticky top-0">
+          <input
+            className="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 col-span-2"
+            onChange={searchBusinesses}
+            placeholder="Search Business Name"
+          />
+          <div className="relative">
+            <select
+              className="block appearance-none w-full border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              onChange={filterBusinessByCategory}
             >
-              <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-            </svg>
+              <option value="">Select a Category</option>
+              <option value="plumber">plumber</option>
+              <option value="electrician">electrician</option>
+              <option value="painter">painter</option>
+              <option value="food">food / beverage</option>
+              <option value="childcare">child care</option>
+              <option value="petcare">pet care</option>
+              <option value="realtor">realtor</option>
+              <option value="handyman">handyman</option>
+              <option value="other">other</option>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+              <svg
+                className="fill-current h-4 w-4"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+              </svg>
+            </div>
           </div>
-        </div>
 
-        {/* <button
+          {/* <button
           type="buttom"
           value="plumber"
           onClick={filterBusinessByCategory}
         >
           Plumber
         </button> */}
-        {/* <SearchBar /> */}
-      </div>
-      <div className="max-w-screen-lg m-auto">
-        {businesses.length > 0
-          ? businesses.map((business) => (
-              <Business key={business.id} info={business} />
-            ))
-          : "sorry no biz"}
+          {/* <SearchBar /> */}
+          <div className="flex content-center">
+            <label className="inline-flex items-center">
+              <input
+                checked={checkBoxValue}
+                type="checkbox"
+                className="form-checkbox text-indigo-600 h-4 w-4"
+                onChange={toggleMBOwners}
+              />
+              <span class="ml-2">Owned by MB Resident</span>
+            </label>
+          </div>
+        </div>
+        <div>
+          {businesses.length > 0
+            ? businesses.map((business) => (
+                <Business key={business.id} info={business} />
+              ))
+            : "sorry no biz"}
+        </div>
       </div>
     </>
   );
