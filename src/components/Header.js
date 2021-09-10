@@ -27,7 +27,14 @@ function SignIn() {
     const provider = new firebase.auth.FacebookAuthProvider();
     auth.signInWithPopup(provider);
   };
-  return <button onClick={signInWithFacebook}>Sign in Facebook</button>;
+  return (
+    <button
+      className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-purple-800 mt-4 mr-4"
+      onClick={signInWithFacebook}
+    >
+      Sign in Facebook
+    </button>
+  );
 }
 
 const Header = () => {
@@ -35,7 +42,7 @@ const Header = () => {
 
   return (
     <nav className="p-6 bg-gray-900">
-      <div className="flex max-w-screen-lg mx-auto">
+      <div className="flex max-w-screen-lg mx-auto flex-col md:flex-row">
         <div className="flex flex-shrink-0 flex-col text-white mr-6">
           <span className="font-semibold text-3xl tracking-tight logo">
             <Link to="/" href="#">
@@ -43,7 +50,7 @@ const Header = () => {
             </Link>
           </span>
           <div className="text-sm">
-            Businesses and Services Recommneded by the Masons Bend Community
+            Businesses and Services Recommneded by the Community
           </div>
         </div>
         <div className="text-sm flex-1"></div>

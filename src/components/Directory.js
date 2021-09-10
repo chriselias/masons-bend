@@ -5,6 +5,7 @@ import firebase from "../firebase";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import Business from "./Business";
 import SearchBar from "./SearchBar";
+import Alert from "./Alert";
 
 const firestore = firebase.firestore();
 
@@ -130,11 +131,15 @@ const Directory = () => {
           </div>
         </div>
         <div>
-          {businesses.length > 0
-            ? businesses.map((business) => (
-                <Business key={business.id} info={business} />
-              ))
-            : "sorry no biz"}
+          {businesses.length > 0 ? (
+            businesses.map((business) => (
+              <Business key={business.id} info={business} />
+            ))
+          ) : (
+            <div className="p-12">
+              <Alert text="sorry no biz" color="yellow" />
+            </div>
+          )}
         </div>
       </div>
     </>

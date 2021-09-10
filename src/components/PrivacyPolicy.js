@@ -2,8 +2,8 @@ import React from "react";
 
 const Privacypolicy = () => {
   return (
-    <div className="max-w-screen-md m-auto p-12">
-      <h1 className="text-xl">Privacy Policy</h1>
+    <div className="max-w-screen-xl m-auto p-12 bg-white">
+      <h1 className="text-xl mb-8">Privacy Policy</h1>
       <h2>Information that is gathered from visitors</h2>
       <p>
         In common with other websites, log files are stored on the web server
