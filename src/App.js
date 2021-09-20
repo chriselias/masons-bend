@@ -8,25 +8,38 @@ import Footer from "./components/Footer";
 import Privacy from "./components/PrivacyPolicy";
 import SignUp from "./components/SignUp";
 
+import { IconContext } from "react-icons";
+import BusinessDetails from "./components/BusinessDetails";
+
 function App() {
   return (
-    <div className="bg-gray-900 min-h-screen">
-      <Router>
-        <Header />
-        <Route exact path="/">
-          <Directory />
-        </Route>
-        <Route path="/add">
-          <Addbusiness />
-        </Route>
-        <Route path="/privacy">
-          <Privacy />
-        </Route>
-        <Route path="/signup">
-          <SignUp />
-        </Route>
-        <Footer />
-      </Router>
+    <div className="min-h-screen p-8 bg-background">
+      <IconContext.Provider
+        value={{
+          color: "#FFFFFF",
+          className: "global-class-name",
+        }}
+      >
+        <Router>
+          <Header />
+          <Route exact path="/">
+            <Directory />
+          </Route>
+          <Route path="/add">
+            <Addbusiness />
+          </Route>
+          <Route path="/privacy">
+            <Privacy />
+          </Route>
+          <Route path="/signup">
+            <SignUp />
+          </Route>
+          <Route path="/business/:id">
+            <BusinessDetails />
+          </Route>
+          <Footer />
+        </Router>
+      </IconContext.Provider>
     </div>
   );
 }

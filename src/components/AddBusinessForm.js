@@ -5,7 +5,8 @@ import firebase from "../firebase";
 const firestore = firebase.firestore();
 const auth = firebase.auth();
 
-const AddBusinessForm = () => {
+const AddBusinessForm = (props) => {
+  const { handleSetAlert } = props;
   const {
     register,
     handleSubmit,
@@ -48,7 +49,7 @@ const AddBusinessForm = () => {
       uid,
       photoURL,
     });
-    setAlert(true);
+    handleSetAlert(true);
   };
 
   return (
@@ -82,7 +83,7 @@ const AddBusinessForm = () => {
             className="appearance-none block w-full bg-gray-50 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
             {...register("description", {
               required: "Enter a Description",
-              maxLength: 50,
+              maxLength: 500,
             })}
           />
 

@@ -1,14 +1,5 @@
 import React from "react";
-import plumber from "../assets/svg/plumber.svg";
-import electrician from "../assets/svg/electrician.svg";
-import landscaper from "../assets/svg/landscaper.svg";
-import handyman from "../assets/svg/handyman.svg";
-import childcare from "../assets/svg/child-care.svg";
-import food from "../assets/svg/food.svg";
-import other from "../assets/svg/other.svg";
-import petcare from "../assets/svg/pet-care.svg";
-import realtor from "../assets/svg/realtor.svg";
-
+import Icon from "./Icon";
 const Business = (props) => {
   const {
     name,
@@ -26,23 +17,17 @@ const Business = (props) => {
   } = props.info;
 
   return (
-    <div className="flex border-r border-b border-l border-gray-200 ">
-      <div className="flex px-6 py-4 border-r border-gray-200">
-        {category === "plumber" && <img src={plumber} alt={name} />}
-        {category === "electrician" && <img src={electrician} alt={name} />}
-        {category === "handyman" && <img src={handyman} alt={name} />}
-        {category === "childcare" && <img src={childcare} alt={name} />}
-        {category === "petcare" && <img src={petcare} alt={name} />}
-        {category === "realtor" && <img src={realtor} alt={name} />}
-        {category === "landscaper" && <img src={landscaper} alt={name} />}
-        {category === "food" && <img src={food} alt={name} />}
-        {category === "other" && <img src={other} alt={name} />}
-        {!category && <img src={other} alt={name} />}
+    <div className="flex px-4 mb-2 rounded-lg items-center hover:bg-background">
+      <div className="">
+        <div className="bg-primary rounded-lg p-4">
+          <Icon category={category} />
+        </div>
       </div>
 
       <div className="px-6 py-4">
-        <div className="font-bold text-md">{name}</div>
-        <div className="text-gray-700 text-sm">{description}</div>
+        <div className="font-bold text-md text-text">{name}</div>
+        <div className="text-gray-700 text-sm">{category}</div>
+        {/* <div className="text-gray-700 text-sm">{description}</div>
         <div className="text-gray-700 text-sm">
           {address} {city} {state} {zip}
         </div>
@@ -51,7 +36,7 @@ const Business = (props) => {
         </div>
         <div className="text-gray-700 text-sm">
           {facebook} {instagram}
-        </div>
+        </div> */}
       </div>
       {/* <div className="px-6 pt-4 pb-2">
         {category && (

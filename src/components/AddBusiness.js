@@ -4,6 +4,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 
 import Alert from "./Alert";
 import SignInButton from "./SignInButton";
+import AddBusinessForm from "./AddBusinessForm";
 
 const auth = firebase.auth();
 
@@ -25,6 +26,7 @@ const Addbusiness = () => {
               </p>
               <p></p>
             </div>
+            <AddBusinessForm handleSetAlert={setAlert} />
           </div>
         </>
       ) : (
